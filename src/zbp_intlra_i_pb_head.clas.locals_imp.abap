@@ -142,7 +142,7 @@ CLASS lhc_Contact IMPLEMENTATION.
           ignore_case = abap_true.
 
       " Read E-Mail ID's
-      READ ENTITIES OF zintlra_i_pb_head
+      READ ENTITIES OF zintlra_i_pb_head IN LOCAL MODE
       ENTITY Contact
       FIELDS ( PbEmailId ) WITH CORRESPONDING #( keys )
       RESULT DATA(Contacts).

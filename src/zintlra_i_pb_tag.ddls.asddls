@@ -1,5 +1,5 @@
 @AbapCatalog.viewEnhancementCategory: [#NONE]
-@AccessControl.authorizationCheck: #CHECK
+@AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Phone Book Tags'
 @Metadata.ignorePropagatedAnnotations: true
 @ObjectModel.usageType:{

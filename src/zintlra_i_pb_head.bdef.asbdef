@@ -12,9 +12,10 @@ etag master PbChangedAt
   create;
   update;
   delete;
-  association _item { create; with draft; }
+  association _item { create(features : instance); with draft; }
 
   field(numbering : managed, readonly) PbUuid;
+  field(mandatory) PbTagCode,PbLastName,PbEmailId;
   field(readonly) PbOwner, PbId, PbCreatedAt, PbChangedAt;
 
   action(features : instance) setFavourite    result [1] $self;
@@ -58,6 +59,7 @@ etag master PbChangedAt
   association _hdr{ with draft; }
 
   field(numbering : managed, readonly) PbItemUuid;
+  field(mandatory) PbCategory, PbTelephone;
   field(readonly) PbUuid, PbId, PbItemId, PbCreatedAt, PbChangedAt;
 
   action(features : instance) setDefault result [1] $self;

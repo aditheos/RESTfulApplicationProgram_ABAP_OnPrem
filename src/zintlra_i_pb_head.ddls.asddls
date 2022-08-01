@@ -1,4 +1,4 @@
-@AccessControl.authorizationCheck: #CHECK
+@AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Phone Book Header Interface View'
 define root view entity ZINTLRA_I_PB_HEAD as select from zintlra_pb_d_hdr 
 composition [0..*] of ZINTLRA_I_PB_ITEM as _item

@@ -1,4 +1,4 @@
-@AccessControl.authorizationCheck: #CHECK
+@AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Phone Book Items Interface View'
 define view entity ZINTLRA_I_PB_ITEM as select from zintlra_pb_d_itm 
 association to parent ZINTLRA_I_PB_HEAD as _hdr

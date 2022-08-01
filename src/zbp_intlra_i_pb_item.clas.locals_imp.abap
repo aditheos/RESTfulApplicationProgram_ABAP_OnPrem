@@ -150,13 +150,18 @@ CLASS lhc_phonenumber IMPLEMENTATION.
     REPORTED DATA(reported1).
   ENDMETHOD.
 
-  METHOD validatePhone.
+METHOD validatePhone.
       DATA lv_phone TYPE string.
       " Read Phone Numbers
-      READ ENTITIES OF zintlra_i_pb_head
+      READ ENTITIES OF zintlra_i_pb_head IN LOCAL MODE
       ENTITY PhoneNumber
       ALL FIELDS WITH CORRESPONDING #( keys )
       RESULT DATA(PhoneNumbers).
+
+      READ ENTITIES OF zintlra_i_pb_head IN LOCAL MODE
+      ENTITY PhoneNumber BY \_hdr
+      FROM CORRESPONDING #( PhoneNumbers )
+      LINK DATA(ContactPhoneNumberLinks).
 
       LOOP AT PhoneNumbers INTO DATA(phonenumber).
          " Validate Phone
@@ -175,7 +180,7 @@ CLASS lhc_phonenumber IMPLEMENTATION.
                                     phone    = phonenumber-PbTelephone
                                   )
                           %element-PbTelephone = if_abap_behv=>mk-on
-                          %path = VALUE #( contact-PbUuid    = phonenumber-PbUuid )
+                          %path = VALUE #( contact-%tky    = ContactPhoneNumberLinks[ source-%tky = phonenumber-%tky ]-target-%tky )
                          )
                      TO reported-phonenumber.
          ENDIF.

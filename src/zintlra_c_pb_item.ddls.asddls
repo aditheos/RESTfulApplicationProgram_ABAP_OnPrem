@@ -1,4 +1,4 @@
-@AccessControl.authorizationCheck: #CHECK
+@AccessControl.authorizationCheck: #NOT_REQUIRED
 @EndUserText.label: 'Phone Book Item Consumption View'
 @Search.searchable: true
 @Metadata.allowExtensions: true
