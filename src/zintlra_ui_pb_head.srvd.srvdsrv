@@ -1,0 +1,7 @@
+@EndUserText.label: 'Phone Book'
+define service ZINTLRA_UI_PB_HEAD {
+  expose ZINTLRA_C_PB_HEAD as Contact;
+  expose ZINTLRA_C_PB_ITEM as PhoneNumber;
+  expose ZINTLRA_I_PB_USER as User;
+  expose ZINTLRA_I_PB_CAT as Category;
+}

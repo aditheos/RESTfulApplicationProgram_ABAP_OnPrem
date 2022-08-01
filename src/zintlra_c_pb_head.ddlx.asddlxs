@@ -1,0 +1,99 @@
+ @Metadata.layer: #CORE
+
+@UI:{ 
+    headerInfo: {
+        typeName: 'Contact',
+        typeNamePlural: 'Contacts',
+        title: {
+            type: #STANDARD,
+            label: 'Contact',
+            value: 'PbContactName'
+        }
+    },
+    presentationVariant: [{
+        sortOrder: [{
+            by: 'PbUuid',
+            direction: #DESC
+        }],
+        visualizations: [{
+            type: #AS_LINEITEM
+        }]
+    }]
+}
+annotate view ZINTLRA_C_PB_HEAD
+    with 
+{
+    @UI.facet: [{ 
+                    id:'Contact', 
+                    purpose:#STANDARD, 
+                    type: #IDENTIFICATION_REFERENCE, 
+                    label: 'Contact',
+                    position: 10
+                 },
+                { 
+                    id:'PhoneNumber', 
+                    purpose:#STANDARD, 
+                    type: #LINEITEM_REFERENCE, 
+                    label: 'Phone Numbers', 
+                    position: 20, 
+                    targetElement: '_item'
+                }]
+   
+   @UI.hidden: true
+   PbOwner;
+   
+   @UI.hidden: true
+   PbOwnerName;
+   
+   @UI.hidden: true
+   PbId;
+   
+   @UI: { 
+      lineItem: [ { position: 10 } ], 
+      identification: [ { position: 10 } ], 
+      selectionField: [ { position: 10 } ] 
+   }
+   PbTagCode;
+   
+   @UI: { 
+      lineItem: [ { position: 20 } ], 
+      identification: [ { position: 20 } ], 
+      selectionField: [ { position: 20 } ] 
+   }
+   PbFirstName;
+   @UI: { 
+      lineItem: [ { position: 30 } ], 
+      identification: [ { position: 30 } ], 
+      selectionField: [ { position: 30 } ] 
+   }
+   PbLastName;
+   
+   @UI.hidden: true
+   PbCreatedAt;
+   
+   @UI.hidden: true
+   PbChangedAt;
+   
+   @UI: { 
+      lineItem: [ { position: 40 } ], 
+      identification: [ { position: 40 } ]
+   }
+   PbEmailId;
+   
+   @UI: { 
+      lineItem: [ { position: 50 },
+                  { type: #FOR_ACTION, dataAction: 'setFavourite', label: 'Set Favourite' }, 
+                  { type: #FOR_ACTION, dataAction: 'removeFavourite', label: 'Not a Favourite' } 
+      ], 
+      identification: [ { position: 50 },
+                        { type: #FOR_ACTION, dataAction: 'setFavourite', label: 'Set Favourite' },
+                        { type: #FOR_ACTION, dataAction: 'removeFavourite', label: 'Not a Favourite' }  
+      ],
+      selectionField: [ { position: 50 } ] 
+    }
+    PbFavourite;
+    
+   /* Associations */
+   @UI.selectionField: [{ element: '_item.PbTelephone', position: 60 }]
+   _item;  
+}

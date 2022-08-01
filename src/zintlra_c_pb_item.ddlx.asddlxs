@@ -1,0 +1,61 @@
+@Metadata.layer: #CORE
+
+@UI:{ 
+    headerInfo:{ 
+        typeName: 'Phone Number',
+        typeNamePlural: 'Phone Numbers',
+        title:{ 
+            type: #STANDARD,
+            value: 'PbCategoryText'
+        }
+    }
+}
+annotate view ZINTLRA_C_PB_ITEM
+    with 
+{
+
+    @UI.facet: [ { 
+                    id: 'Booking', 
+                    purpose: #STANDARD, 
+                    type: #IDENTIFICATION_REFERENCE, 
+                    label: 'Phone Number', 
+                    position: 10 
+                } ]
+
+    @UI.hidden: true
+    PbItemUuid;
+    @UI.hidden: true
+    PbUuid;
+    @UI.hidden: true
+    PbId;
+    @UI.hidden: true
+    PbItemId;
+    
+    @UI: { 
+      lineItem: [ { position: 10 } ], 
+      identification: [ { position: 10 } ]
+    }
+    PbCategory;
+    
+    @UI: { 
+      lineItem: [ { position: 20 } ], 
+      identification: [ { position: 20 } ]
+    }
+    PbTelephone;
+    
+    @UI: { 
+      lineItem: [ { position: 30 },
+                  { type: #FOR_ACTION, dataAction: 'setDefault', label: 'Set Default' }
+      ], 
+      identification: [ { position: 30 },
+                        { type: #FOR_ACTION, dataAction: 'setDefault', label: 'Set Default' }
+      ]
+    }
+    PbDefault;
+    
+    @UI.hidden: true
+    PbCreatedAt;
+    @UI.hidden: true
+    PbChangedAt;
+    
+}

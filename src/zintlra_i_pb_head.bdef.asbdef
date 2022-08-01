@@ -1,0 +1,80 @@
+managed; // implementation in class zbp_intlra_i_pb_head unique;
+with draft;
+
+define behavior for ZINTLRA_I_PB_HEAD alias Contact
+implementation in class ZBP_INTLRA_I_PB_HEAD unique
+persistent table zintlra_pb_d_hdr
+draft table zint_pb_d_hdrtmp
+lock master total etag PbChangedAt
+etag master PbChangedAt
+
+{
+  create;
+  update;
+  delete;
+  association _item { create; with draft; }
+
+  field(numbering : managed, readonly) PbUuid;
+  field(readonly) PbOwner, PbId, PbCreatedAt, PbChangedAt;
+
+  action(features : instance) setFavourite    result [1] $self;
+  action(features : instance) removeFavourite result [1] $self;
+
+  determination setPhoneBookId on save { field PbId; create; }
+
+  validation validateEmail on save { field PbEmailId; create;update; }
+
+  draft determine action Prepare {
+    validation validateEmail;
+    validation PhoneNumber~validatePhone;
+  }
+
+  mapping for zintlra_pb_d_hdr{
+
+    PbUuid       = pb_uuid;
+    PbOwner      = pb_owner;
+    PbId         = pb_id;
+    PbTagCode    = pb_tag_code;
+    PbFirstName  = pb_first_name;
+    PbLastName   = pb_last_name;
+    PbCreatedAt  = pb_created_at;
+    PbChangedAt  = pb_changed_at;
+    PbEmailId    = pb_email_id;
+    PbFavourite  = pb_favourite;
+
+  }
+
+}
+
+define behavior for ZINTLRA_I_PB_ITEM alias PhoneNumber
+implementation in class ZBP_INTLRA_I_PB_ITEM unique
+persistent table zintlra_pb_d_itm
+draft table zint_pb_d_itmtmp
+lock dependent by _hdr
+etag master PbChangedAt
+{
+  update;
+  delete;
+  association _hdr{ with draft; }
+
+  field(numbering : managed, readonly) PbItemUuid;
+  field(readonly) PbUuid, PbId, PbItemId, PbCreatedAt, PbChangedAt;
+
+  action(features : instance) setDefault result [1] $self;
+  internal action setNotDefault;
+
+  determination setPhoneBookItemId on save { field PbItemId; create; }
+  validation validatePhone on save { field PbTelephone; create;update; }
+
+  mapping for zintlra_pb_d_itm {
+    PbItemUuid  = pb_item_uuid;
+    PbUuid      = pb_uuid;
+    PbId        = pb_id;
+    PbItemId    = pb_item_id;
+    PbCategory  = pb_category;
+    PbTelephone = pb_telephone;
+    PbCreatedAt = pb_created_at;
+    PbChangedAt = pb_changed_at;
+    PbDefault   = pb_default;
+  }
+}
